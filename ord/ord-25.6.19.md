@@ -16,3 +16,10 @@
 ### Algoritmos de Busca em Grafos
 - Busca em Extensão/Largura
 - Busca em Profundidade
+
+### Exercício
+1. Implementar algoritmos de busca em grafos
+- Implementar matriz e lista de adjacências
+- Implementar leitor de grafos em arquivos
+- Implementar Busca em Largura
+- Implementar Busca em Profundidade
