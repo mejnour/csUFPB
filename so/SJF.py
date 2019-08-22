@@ -1,41 +1,64 @@
 import operator
 
-def ordenaVec(tempo_chegada, duracao_processo, qtd_processos):
+def montaTupla(tempo_chegada, duracao_processo, qtd_processos):
     vec_ordenado = []
     aux_Tuple = ()
     for i in range(qtd_processos):
         aux_Tuple = (tempo_chegada[i], duracao_processo[i])
         vec_ordenado.append(aux_Tuple)
     
-    vec_ordenado.sort(key = operator.itemgetter(1))
+    # vec_ordenado.sort(key = operator.itemgetter(1))
     # print(vec_ordenado)
     return vec_ordenado
 
-def calcTudo(vec_ord    enado, qtd_processos):
-    _tempo_chegada = []
-    _duracao_processo = []
-    for i in vec_ordenado:            
-        _tempo_chegada.append(i[0])
-        _duracao_processo.append(i[1])
-    
-    print(_tempo_chegada)
-    print(_duracao_processo)
-    tempo_espera = calcTempoEspera(qtd_processos, _tempo_chegada, _duracao_processo)
+def calcTudo(qtd_processos, tupla):    
+    tempo_espera = calcTempoEspera(qtd_processos, tupla)
     tempo_retorno = calcTempoRetorno(qtd_processos, _duracao_processo, tempo_espera)
     tempo_resposta = calcTempoResposta(qtd_processos, _duracao_processo, _tempo_chegada, tempo_espera)
     printaOut(tempo_espera, tempo_retorno, tempo_resposta)
     # print(_tempo_chegada)
     # print(_duracao_processo)
 
-def calcTempoEspera(qtd_processos, tempo_chegada, duracao_processo):
+def calcTempoEspera(qtd_processos, tupla):
+    processos_comp = 0
+    tempo = 0
+    testou = false
     tempo_espera = [0] * qtd_processos
-    for i in range(0, qtd_processos):
-        if i == 0:
-            tempo_espera[0] = 0 + tempo_chegada[i]
-        else:
-            tempo_espera[i] = duracao_processo[i - 1] + tempo_espera[i - 1] - (tempo_chegada[i] - tempo_chegada[i - 1])
+    tempo_faltante = [0] * qtd_processos
+    minm = 999999999
+    short = 0
+    for i in range(qtd_processos):
+        tempo_faltante[i] = tupla[i][1]
 
-    # print(tempo_espera)
+    while (processos_comp != n): 
+        for j in range(n): 
+            if ((tupla[j][2] <= tempo) and
+                (tempo_faltante[j] < minm) and tempo_faltante[j] > 0): 
+                minm = tempo_faltante[j] 
+                short = j 
+                testou = True
+        if (testou == False): 
+            tempo += 1
+            continue
+            
+        tempo_faltante[short] -= 1
+        minm = tempo_faltante[short] 
+        if (minm == 0): 
+            minm = 999999999
+
+        if (tempo_faltante[short] == 0): 
+            processos_comp += 1
+            testou = False
+
+            fint = t + 1
+
+            tempo_espera[short] = (fint - tupla[short][1] -    
+                                tupla[short][2]) 
+
+            if (tempo_espera[short] < 0): 
+                tempo_espera[short] = 0
+        
+        t += 1
     return tempo_espera
 
 def calcTempoRetorno(qtd_processos, duracao_processo, tempo_espera):
@@ -80,5 +103,5 @@ def printaOut(tempo_espera, tempo_retorno, tempo_resposta):
 
 def run(tempo_chegada, duracao_processo):
     qtd_processos = len(tempo_chegada)
-    vec_ordenado = ordenaVec(tempo_chegada, duracao_processo, qtd_processos)
-    calcTudo(vec_ordenado, qtd_processos)
+    tupla = montaTupla(tempo_chegada, duracao_processo, qtd_processos)
+    calcTudo(tupla, qtd_processos)
