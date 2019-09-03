@@ -1,84 +1,73 @@
-import operator
+import sys
 
-def ordenaVec(tempo_chegada, duracao_processo, qtd_processos):
-    vec_ordenado = []
-    aux_Tuple = ()
-    for i in range(qtd_processos):
-        aux_Tuple = (tempo_chegada[i], duracao_processo[i])
-        vec_ordenado.append(aux_Tuple)
-    
-    vec_ordenado.sort(key = operator.itemgetter(1))
-    # print(vec_ordenado)
-    return vec_ordenado
+def calcTemposFinais(tamanho, chegada, duracao):
+    temposFinais = [0] * tamanho
+    restante = duracao
+    terminou = False
+    tempo = 0
+    picoRef = sys.maxsize
+    picoMin = 0
+    indice = 0
+    indiceRef = 0
 
-def calcTudo(vec_ord    enado, qtd_processos):
-    _tempo_chegada = []
-    _duracao_processo = []
-    for i in vec_ordenado:            
-        _tempo_chegada.append(i[0])
-        _duracao_processo.append(i[1])
-    
-    print(_tempo_chegada)
-    print(_duracao_processo)
-    tempo_espera = calcTempoEspera(qtd_processos, _tempo_chegada, _duracao_processo)
-    tempo_retorno = calcTempoRetorno(qtd_processos, _duracao_processo, tempo_espera)
-    tempo_resposta = calcTempoResposta(qtd_processos, _duracao_processo, _tempo_chegada, tempo_espera)
-    printaOut(tempo_espera, tempo_retorno, tempo_resposta)
-    # print(_tempo_chegada)
-    # print(_duracao_processo)
+    while terminou != True:
+        for i in range(tamanho):
+            if (chegada[i] <= tempo):
 
-def calcTempoEspera(qtd_processos, tempo_chegada, duracao_processo):
-    tempo_espera = [0] * qtd_processos
-    for i in range(0, qtd_processos):
-        if i == 0:
-            tempo_espera[0] = 0 + tempo_chegada[i]
-        else:
-            tempo_espera[i] = duracao_processo[i - 1] + tempo_espera[i - 1] - (tempo_chegada[i] - tempo_chegada[i - 1])
+                # print("Entrou.")
+                # print("i:", i)
+                print("Restante:", restante[i])
+                print("Tempo:", tempo)
+                # print("Chegada:", chegada[i])
+                # print("Duracao:", duracao[i])
+                # print("Pico de Referencia:", picoRef)
+                print("Pico Minimo:", picoMin)
+                # print("- - - - - - - -")
 
-    # print(tempo_espera)
-    return tempo_espera
+                tempos_iguais = [x for x in chegada if x == chegada[i]]
+                print(tempos_iguais)
 
-def calcTempoRetorno(qtd_processos, duracao_processo, tempo_espera):
-    tempo_retorno = [0] * qtd_processos
-    # print(tempo_espera)
-    # print(qtd_processos)
-    # print(duracao_processo)
-    for i in range(qtd_processos):
-        # print("Ret = Te(", tempo_espera[i], ") + Tp(", duracao_processo[i], "), em i(", i, ")")
-        tempo_retorno[i] = tempo_espera[i] + duracao_processo[i]
-    
-    # print(tempo_retorno)
-    return tempo_retorno
+                indices_chegadas_iguais = [y for y, x in enumerate(chegada) if x == chegada[i]]
+                print(indices_chegadas_iguais)
 
-def calcTempoResposta(qtd_processos, duracao_processo, tempo_chegada, tempo_espera):
-    tempo_resposta = [0] * qtd_processos
-    auxAcumuladora = [0] * qtd_processos
-    for i in range(qtd_processos):
+                valores_indices = [restante[x] for x in indices_chegadas_iguais if x >= 0]
+                print(valores_indices)
 
-        if i == 0:
-            tempo_resposta[0] = 0
-            auxAcumuladora[0] = duracao_processo[0]
-        else:
-            # print("Resp: Ti(", tempo_chegada[i], "), Te(", tempo_espera[i], "), Du(", duracao_processo[i], "),  Aux(", auxAcumuladora[i - 1], ") em i(", i, ")")
+                # Calcula o pico mínimo entre os valores dos picos dos indices, excluindo o 0
+                try:
+                    picoMin = min([x for x in valores_indices if x != 0])
+                    if ((restante[i] == picoMin) and (picoMin < picoRef)):
+                        indice = i
+                except:
+                    print("+ + + + + + + + + +")
+                    continue
 
-            tempo_resposta[i] = auxAcumuladora[i - 1] - tempo_chegada[i]
-            auxAcumuladora[i] = auxAcumuladora[i - 1] + duracao_processo[i]
+                if ((restante[i] == picoMin) and (picoMin != 0) and (picoMin < picoRef) and (indice == i)):
+                    restante[i] -= 1
+                    picoRef = picoMin
 
-    # print(tempo_resposta)
-    return tempo_resposta
+                    if restante[i] == 0:
+                        temposFinais[i] = tempo + 1
+                        picoRef = sys.maxsize
+                        picoMin = 0
 
-def calcMedia(vetor):
-    total = 0
-    for i in vetor:
-        total = total + i
+                    tempo += 1
 
-    media = total / len(vetor)
-    return media
+                    print(restante)
+                    print(temposFinais)
+                    print("+ + + + + + + + + +")
+                    continue
 
-def printaOut(tempo_espera, tempo_retorno, tempo_resposta):
-    print("SJF " + str(calcMedia(tempo_retorno)) + " " + str(calcMedia(tempo_resposta)) + " " + str(calcMedia(tempo_espera)))
+                print("+ + + + + + + + + +")
 
-def run(tempo_chegada, duracao_processo):
-    qtd_processos = len(tempo_chegada)
-    vec_ordenado = ordenaVec(tempo_chegada, duracao_processo, qtd_processos)
-    calcTudo(vec_ordenado, qtd_processos)
+        # if (max(restante) == 0):
+        #     terminou = True
+
+        if tempo >= 44:
+            terminou = True
+
+if __name__ == "__main__":
+    cheg = [0, 0, 4, 4]
+    dur = [20, 10, 6, 8]
+    tam = len(cheg)
+    calcTemposFinais(tam, cheg, dur)
