@@ -89,8 +89,8 @@ def organizer(nProcess, processList):
                 aux.append(processList[index])
                 resTimeL[index] = time - processList[index].arrival
 
-            processList[index].rPeak -= ready[0].rPeak
             time += ready[0].rPeak
+            processList[index].rPeak -= ready[0].rPeak
             wTimeL[index] = time - processList[index].peak - \
                 processList[index].arrival
             
@@ -105,7 +105,7 @@ def organizer(nProcess, processList):
 
         if len(ready) == 0:
             finished = True
-
+            
     return resTimeL, wTimeL
 
 def run(processList):
