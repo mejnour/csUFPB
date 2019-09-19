@@ -15,7 +15,7 @@ def selectionSort(unord_list):
         
         # Variavel checked resolve problema dos indices
         # não atualizaveis (comentar tudo de checked pra simular
-        # problema)
+        # problema e descomentar o if abaixo)
         if (checked == True):
             continue
 
@@ -46,9 +46,6 @@ def run():
 
     except Exception as e:
         print(str(e))
-
-    # uList = [26, 1000, 58119, -2, 14, -29, -14, 24, -48, 8, 42]
-    # selectionSort(uList)
 
 if __name__ == "__main__":
     t1_start = process_time()

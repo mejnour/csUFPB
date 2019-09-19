@@ -13,11 +13,8 @@ def insertionSort(unord_list):
                 index -= 1
                 if (index < 0):
                     break
-
             else:
-                break 
-
-    # print(unord_list)
+                break
 
 def run():
     try:
