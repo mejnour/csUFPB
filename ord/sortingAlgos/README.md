@@ -211,4 +211,4 @@ $$
 T(n) =\begin{cases}	\displaystyle{	T(1) = 1 \\	T (n - 1) + c \, n	}\end{cases}
 $$
 
-[!equation](https://latex.codecogs.com/gif.latex?T%28n%29%20%3D%20%5Cbegin%7Bcases%7D%20%5Cdisplaystyle%7B%20T%281%29%20%3D%201%20%5C%5C%20T%20%28n%20-%201%29%20&plus;%20c%20%5C%2C%20n%20%7D%20%5Cend%7Bcases%7D)
+[!equation](http://www.sciweavers.org/tex2img.php?eq=T%28n%29%20%3D%0A%5Cbegin%7Bcases%7D%20%0A%5Cdisplaystyle%7B%20%0AT%281%29%20%3D%201%20%5C%5C%20%0AT%20%28n%20-%201%29%20%2B%20c%20%5C%2C%20n%20%0A%7D%0A%5Cend%7Bcases%7D&bc=White&fc=Black&im=png&fs=18&ff=modern&edit=0)
