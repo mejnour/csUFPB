@@ -1,5 +1,9 @@
 def waitingTime(nProcess, processList):
     accu = 0
+
+    # Calcula os tempos de espera de cada processo. No caso dele
+    # ser o primeiro, recebe o tempo de chegada (no caso do primeiro
+    # tempo ser diferente de 0).
     for i in range(nProcess):
         if i == 0:
             processList[i].wTime = i + processList[i].arrival

@@ -27,9 +27,10 @@ def run():
         sjfOO.run(pList)
         rr4OO.run(pList)
 
-    except Exception as e:
+    except:
         print("Deu mopa nessa porra")
-        print(str(e))
+        raise
+        # print(str(e))
 
 if __name__ == "__main__":
     run()
